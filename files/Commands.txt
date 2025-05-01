@@ -1,0 +1,36 @@
+#---------- Simulation, Cartographer and Nav ----------
+
+# Build 
+cd ~/ardu_ws
+source /opt/ros/humble/setup.bash
+colcon build --packages-up-to ardupilot_ros ardupilot_gz_bringup
+
+# Copter
+cd ~/ardu_ws
+source install/setup.sh
+ros2 launch ardupilot_gz_bringup iris_maze.launch.py rviz:=false
+
+# Wildthumper 
+cd ~/ardu_ws
+source install/setup.sh
+ros2 launch ardupilot_gz_bringup wildthumper_playpen.launch.py rviz:=false
+
+# Rover
+cd ~/ardu_ws
+source install/setup.sh
+ros2 launch ardupilot_gz_bringup rover_vineyard.launch.py rviz:=false
+
+# Cartographer
+cd ~/ardu_ws
+source install/setup.sh
+ros2 launch ardupilot_cartographer cartographer.launch.py rviz:=false
+
+# Nav2
+cd ~/ardu_ws
+source install/setup.sh
+ros2 launch ardupilot_cartographer navigation.launch.py
+
+# mavproxy
+mavproxy.py --console --map --aircraft test --master=:14550
+
+# Nav2 
